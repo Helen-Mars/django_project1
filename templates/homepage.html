@@ -1,0 +1,13 @@
+<!-- 继承 base.html 模板 -->
+{% extends 'base.html' %}
+
+<!-- 重写 title 块 -->
+{% block title %}
+    My Custom Page Title
+{% endblock %}
+
+<!-- 重写 content 块 -->
+{% block content %}
+    <h2>About Us</h2>
+    <p>This is our about page content...</p>
+{% endblock %}
