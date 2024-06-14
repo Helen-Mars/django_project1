@@ -1,13 +1,36 @@
-<!-- 继承 base.html 模板 -->
-{% extends 'base.html' %}
+<!-- home.html -->
+<!DOCTYPE html>
+{% load static %}
 
-<!-- 重写 title 块 -->
-{% block title %}
-    My Custom Page Title
-{% endblock %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Custom Page Title</title>
+    <!-- 引入CSS文件 -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <!-- 添加其他页面链接 -->
+                <li><a href="{% url 'upload_page' %}">Upload</a></li> <!-- 添加上传页面的链接 -->
+            </ul>
+        </nav>
+    </header>
 
-<!-- 重写 content 块 -->
-{% block content %}
-    <h2>About Us</h2>
-    <p>This is our about page content...</p>
-{% endblock %}
+    <main>
+        <!-- 主要内容区域 -->
+        <h2>About Us</h2>
+        <p>This is our about page content...</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -27,4 +27,6 @@ urlpatterns = [
     path('home/', views.home_page, name='home'),
     path('about/', views.about, name='about'),
     path('', views.start),
+    path('home/upload/', views.upload_file, name='upload_page'),  # 示例中的上传页面
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
