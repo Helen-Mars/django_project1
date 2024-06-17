@@ -1,6 +1,7 @@
 <!-- home.html -->
 <!DOCTYPE html>
 {% load static %}
+{% load custom_tags %}
 
 <html lang="en">
 <head>
@@ -25,8 +26,11 @@
 
     <main>
         <!-- 主要内容区域 -->
+
         <h2>About Us</h2>
         <p>This is our about page content...</p>
+        <p>{% show_user_profiles %}</p>
+
     </main>
 
     <footer>
