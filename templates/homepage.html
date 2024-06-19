@@ -18,19 +18,23 @@
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
-                <!-- 添加其他页面链接 -->
-                <li><a href="{% url 'upload_page' %}">Upload</a></li> <!-- 添加上传页面的链接 -->
+                <li><a href="{% url 'upload_page' %}">Upload</a></li>
+                <!-- 新增注册功能链接 -->
+                <li><a href="{% url 'register' %}">Register</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- 主要内容区域 -->
-
         <h2>About Us</h2>
         <p>This is our about page content...</p>
-        <p>{% show_user_profiles %}</p>
 
+
+        <div>
+            <h2>Uppercase Example</h2>
+            <p>Original text: {{ text }}</p>
+            <p>Uppercase version: {% uppercase text %}</p>
+        </div>
     </main>
 
     <footer>

@@ -1,5 +1,33 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+
+
+class CustomUser(AbstractUser):
+    # 自定义字段
+    phone_number = models.CharField(max_length=15, blank=True)
+    address = models.CharField(max_length=255, blank=True)
+
+    # groups 和 user_permissions 关系字段直接定义在类中
+    groups = models.ManyToManyField(
+        'auth.Group',
+        verbose_name='groups',
+        blank=True,
+    )
+
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        verbose_name='user permissions',
+        blank=True,
+    )
+
+    class Meta:
+        # 模型元数据设置
+        verbose_name = 'custom user'
+        verbose_name_plural = 'custom users'
+        ordering = ['username']
+
+    def __str__(self):
+        return self.username
 
 
 class MyModel(models.Model):
@@ -9,15 +37,3 @@ class MyModel(models.Model):
     my_field = models.CharField(max_length=100)
     my_integer = models.IntegerField(default=0)
     my_date = models.DateField()
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
-
-    def __str__(self):
-        return self.user.username
-
-

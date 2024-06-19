@@ -19,14 +19,16 @@ from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from .views import RegisterUser
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('project_1/', include('project_1.urls')),
     path('home/', views.home_page, name='home'),
     path('about/', views.about, name='about'),
     path('', views.start),
     path('home/upload/', views.upload_file, name='upload_page'),  # 示例中的上传页面
+    path('home/register/', RegisterUser.as_view(), name='register'),
+    path('home/success/', views.success_page, name='success_page')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

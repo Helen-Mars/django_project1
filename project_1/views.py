@@ -1,8 +1,21 @@
 # 在 views.py 文件中
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import MyModel
-from .forms import MyModelForm
+from .models import MyModel, CustomUser
+from .forms import MyModelForm, UserRegistrationForm
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+
+
+def success_page(request):
+    return render(request, 'success_page.html')
+
+
+class RegisterUser(CreateView):
+    model = CustomUser
+    form_class = UserRegistrationForm
+    template_name = 'register.html'
+    success_url = reverse_lazy('home')  # 注册成功后重定向到登录页面
 
 
 def upload_file(request):
@@ -16,20 +29,15 @@ def upload_file(request):
     return render(request, 'upload.html', {'form': form})
 
 
-def my_view(request):
-    obj = MyModel.objects.get(pk=1)  # 获取数据库中的对象
-    return render(request, 'template.html', {'object': obj})
-
-
 def start(request):
     return render(request, 'welcome.html')
 
 
 def home_page(request):
-    context_dict = {'bold_message': "Crunchy, creamy, cookie, candy, cupcake!"}
+    text = "hello Django"
 
     # obj = MyModel.objects.first()
-    return render(request, 'homepage.html', {'object': context_dict})
+    return render(request, 'homepage.html', {'text': text})
 
 
 def about(request):
