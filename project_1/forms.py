@@ -3,6 +3,13 @@ from .models import MyModel, CustomUser
 from django.contrib.auth.forms import UserCreationForm
 
 
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Username', min_length=4, max_length=64, error_messages={
+                                   'min_length': "密码长度不能小于4个字符",
+                                   'max_length': "密码长度不能大于64个字符"})
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+
 class MyModelForm(forms.ModelForm):
     class Meta:
         model = MyModel

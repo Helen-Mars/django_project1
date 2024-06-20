@@ -22,6 +22,7 @@ class CustomUser(AbstractUser):
 
     class Meta:
         # 模型元数据设置
+        db_table = 'tb_users'
         verbose_name = 'custom user'
         verbose_name_plural = 'custom users'
         ordering = ['username']

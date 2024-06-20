@@ -2,9 +2,48 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import MyModel, CustomUser
-from .forms import MyModelForm, UserRegistrationForm
+from .forms import MyModelForm, UserRegistrationForm, LoginForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+
+def logout_view(request):
+    logout(request)
+    # 可选：执行额外的清理操作
+    # 记录日志、发送邮件等
+
+    # 重定向到登录页面或其它页面
+    return redirect('home')  # 假设 'login' 是你的登录页面的 URL 名称
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = request.POST['username'].strip()
+            password = request.POST['password'].strip()
+            # 打印出来检查值
+            print(f"Username: {username}, Password: {password}")
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # 登录成功后的跳转逻辑，例如重定向到首页
+                messages.success(request, '登录成功！')
+                return redirect('home')
+            else:
+                # 登录失败处理
+                print("Authentication failed: user is None")
+
+                return render(request, 'login.html', {'form': form, 'error': 'Invalid username or password.'})
+        else:
+            print("Form is invalid:", form.errors)
+    else:
+        form = LoginForm()
+    # 渲染登录页面
+    return render(request, 'login.html', {'form': form})
 
 
 def success_page(request):
@@ -39,9 +78,10 @@ def home_page(request):
     # obj = MyModel.objects.first()
     return render(request, 'homepage.html', {'text': text})
 
-
+@login_required
 def about(request):
     # 可以在这里编写关于 about 页面的逻辑
+
     context = {
         'title': 'About Us',
         'content': 'This is the about page content...',
