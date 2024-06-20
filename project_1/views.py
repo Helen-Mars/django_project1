@@ -8,6 +8,31 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
+
+
+def get_server_side_cookie(request, cookie, default_val=None):
+    val = request.session.get(cookie)
+    if not val:
+        val = default_val
+    return val
+
+
+def visitor_cookie_handler(request):
+    visits = int(get_server_side_cookie(request, 'visits', '1'))
+
+    last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
+
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S')
+    if (datetime.now() - last_visit_time).days > 0:
+        visits = visits + 1
+        # 增加访问次数后更新“last_visit”cookie
+        request.session['last_visit'] = str(datetime.now())
+    else:
+        # 设定“last_visit”
+        request.session['last_visit'] = last_visit_cookie
+        # 更
+    request.session['visits'] = visits
 
 
 def logout_view(request):
@@ -73,14 +98,21 @@ def start(request):
 
 
 def home_page(request):
-    text = "hello Django"
 
+    visitor_cookie_handler(request)
+
+    text = "hello Django"
     # obj = MyModel.objects.first()
-    return render(request, 'homepage.html', {'text': text})
+    return render(request, 'homepage.html', {'text': text, 'visits': request.session['visits']})
+
 
 @login_required
 def about(request):
     # 可以在这里编写关于 about 页面的逻辑
+    # request.session.set_test_cookie()
+    # if request.session.test_cookie_worked():
+    #     print("TEST COOKIE WORKED!")
+    #     request.session.delete_test_cookie()
 
     context = {
         'title': 'About Us',
