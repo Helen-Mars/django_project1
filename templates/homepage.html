@@ -20,10 +20,11 @@
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'upload_page' %}">Upload</a></li>
                 <!-- 新增注册功能链接 -->
-                <li><a href="{% url 'register' %}">Register</a></li>
+
+                <li><a href="{% url 'registration_register' %}">Register</a></li>
                 <!-- 登录功能链接 -->
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'auth_login' %}">Login</a></li>
+                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
 
             </ul>
         </nav>

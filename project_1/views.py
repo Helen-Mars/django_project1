@@ -1,8 +1,8 @@
 # 在 views.py 文件中
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import MyModel, CustomUser
-from .forms import MyModelForm, UserRegistrationForm, LoginForm
+from .models import MyModel
+from .forms import MyModelForm, LoginForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
@@ -75,11 +75,11 @@ def success_page(request):
     return render(request, 'success_page.html')
 
 
-class RegisterUser(CreateView):
-    model = CustomUser
-    form_class = UserRegistrationForm
-    template_name = 'register.html'
-    success_url = reverse_lazy('home')  # 注册成功后重定向到登录页面
+# class RegisterUser(CreateView):
+#     model = CustomUser
+#     form_class = UserRegistrationForm
+#     template_name = 'register.html'
+#     success_url = reverse_lazy('home')  # 注册成功后重定向到登录页面
 
 
 def upload_file(request):

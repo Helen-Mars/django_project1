@@ -19,6 +19,7 @@ from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -27,9 +28,11 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('', views.start),
     path('home/upload/', views.upload_file, name='upload_page'),  # 示例中的上传页面
-    path('home/register/', views.RegisterUser.as_view(), name='register'),
-    path('home/success/', views.success_page, name='success_page'),
-    path('home/login/', views.user_login, name='login'),
-    path('logout/', views.logout_view, name='logout'),
+    # path('home/register/', views.RegisterUser.as_view(), name='register'),
+    # path('home/success/', views.success_page, name='success_page'),
+    # path('home/login/', views.user_login, name='login'),
+    # path('logout/', views.logout_view, name='logout'),
+    path('home/accounts/', include('registration.backends.simple.urls')),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

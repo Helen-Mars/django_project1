@@ -1,36 +1,38 @@
 <!DOCTYPE html>
-
 {% load static %}
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Website{% endblock %}</title>
-    <!-- 引入CSS文件 -->
+    {% block meta %}
+    <!-- Custom meta tags can be added here -->
+    {% endblock %}
+    <title>{% block title %}Your Website Title{% endblock %}</title>
+    <!-- Include any additional CSS or JavaScript libraries -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/scripts.js' %}"></script>
 </head>
 <body>
     <header>
-        <h1>Welcome to My Website</h1>
+        <!-- Your header content goes here -->
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'about' %}">About</a></li>
-                <!-- 添加其他页面链接 -->
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/contact/">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <img src="{{ object.my_image.url }}" alt="My Image">
-        <!-- 主要内容区域 -->
         {% block content %}
+        <!-- Main content of each page goes here -->
         {% endblock %}
     </main>
 
     <footer>
-        <p>&copy; 2024 My Website. All rights reserved.</p>
+        <!-- Your footer content goes here -->
+        <p>&copy; 2024 Your Website. All rights reserved.</p>
     </footer>
 </body>
 </html>
