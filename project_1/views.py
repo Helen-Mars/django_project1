@@ -11,6 +11,9 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 
+def contact(request):
+    return render(request, 'contact.html')
+
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
     if not val:

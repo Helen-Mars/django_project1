@@ -34,5 +34,6 @@ urlpatterns = [
     # path('logout/', views.logout_view, name='logout'),
     path('home/accounts/', include('registration.backends.simple.urls')),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('contact/', views.contact, name='contact')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
