@@ -1,5 +1,6 @@
 from django import forms
 from .models import MyModel
+# from bootstrap_toolkit.widgets import BootstrapTextInput
 
 
 class LoginForm(forms.Form):
